@@ -1,6 +1,7 @@
 package main
 
 import "fmt"
+import "unsafe"
 
 // 定义全局变量
 var n4 = 44
@@ -40,4 +41,12 @@ func main()  {
 	fmt.Println("n4=", n4, "n5=", n5, "name2=", name2)
 	fmt.Println("n6=", n6, "n7=", n7, "name3=", name3)
 
+	// 无符号的int
+	var l uint8 = 255
+	fmt.Println(l)
+
+	// 如何在程序查看某个变量的占用字节大小和数据类型
+	var n8 int64 = 10
+	// unsafe.Sizeof()是unsafe包的一个函数，可以返回变量n8占用的字节数
+	fmt.Printf("n8的类型：%T，n8占用的字节数是：%d", n8, unsafe.Sizeof(n8))
 }
