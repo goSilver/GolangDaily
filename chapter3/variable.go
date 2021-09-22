@@ -2,6 +2,17 @@ package main
 
 import "fmt"
 
+// 定义全局变量
+var n4 = 44
+var n5 = 55
+var name2 = "jack"
+// 上面的声明方式，也可以改成一次性声明
+var (
+	n6 = 66
+	n7 = 77
+	name3 = "allen"
+)
+
 func main()  {
 	// 声明变量
 	var i int
@@ -24,4 +35,9 @@ func main()  {
 	// 一次性声明多个变量
 	n1, name, n3 := 100, "tom~", 12.34
 	fmt.Println("n1=", n1, "name=", name, "n3=", n3)
+
+	// 全局变量声明
+	fmt.Println("n4=", n4, "n5=", n5, "name2=", name2)
+	fmt.Println("n6=", n6, "n7=", n7, "name3=", name3)
+
 }
