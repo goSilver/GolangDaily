@@ -20,4 +20,8 @@ func main()  {
 	// 3、省略var，注意 := 左侧的变量不应该是已经声明过的，否则会导致编译错误
 	name := "tom"
 	fmt.Println("name=", name)
+
+	// 一次性声明多个变量
+	n1, name, n3 := 100, "tom~", 12.34
+	fmt.Println("n1=", n1, "name=", name, "n3=", n3)
 }
