@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func main(){
+func main() {
 	var c1 byte = 'a'
 	var c2 byte = '0'
 

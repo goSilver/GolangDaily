@@ -7,14 +7,15 @@ import "unsafe"
 var n4 = 44
 var n5 = 55
 var name2 = "jack"
+
 // 上面的声明方式，也可以改成一次性声明
 var (
-	n6 = 66
-	n7 = 77
+	n6    = 66
+	n7    = 77
 	name3 = "allen"
 )
 
-func main()  {
+func main() {
 	// 声明变量
 	var i int
 	// 给i赋值
