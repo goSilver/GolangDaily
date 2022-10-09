@@ -45,11 +45,11 @@ func TestParentValueCtx(t *testing.T) {
 	m := childCtx.Value("map").(map[string]string)
 	m["key1"] = "val1"
 
-	// 子拿不到父的普通kv
+	// 父拿不到子的普通kv
 	val := parentCtx.Value("key1")
 	fmt.Println(val)
 	// 引用类型可以拿到
-	val = childCtx.Value("map")
+	val = parentCtx.Value("map")
 	fmt.Println(val)
 	/*
 		输出：
