@@ -41,6 +41,7 @@ func TestParentValueCtx(t *testing.T) {
 	ctx := context.Background()
 	parentCtx := context.WithValue(ctx, "map", map[string]string{})
 	childCtx := context.WithValue(parentCtx, "key1", "value1")
+	// 类型断言
 	m := childCtx.Value("map").(map[string]string)
 	m["key1"] = "val1"
 
