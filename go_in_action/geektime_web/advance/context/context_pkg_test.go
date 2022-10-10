@@ -3,6 +3,8 @@ package context
 import (
 	"context"
 	"fmt"
+	"golang.org/x/sync/errgroup"
+	"sync/atomic"
 	"testing"
 	"time"
 )
@@ -85,4 +87,20 @@ func TestContextAfterFunc(t *testing.T) {
 		timeout
 		business end
 	*/
+}
+
+func TestErrGroup(t *testing.T) {
+	eg := errgroup.Group{}
+	var result int64 = 0
+	for i := 0; i < 10; i++ {
+		delta := i
+		eg.Go(func() error {
+			atomic.AddInt64(&result, int64(delta))
+			return nil
+		})
+	}
+	if err := eg.Wait(); err != nil {
+		t.Fatal(err)
+	}
+	fmt.Println(result)
 }
