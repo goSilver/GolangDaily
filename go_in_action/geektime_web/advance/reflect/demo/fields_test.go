@@ -17,10 +17,10 @@ func TestIterateFields(t *testing.T) {
 	u2 := &u1
 
 	tests := []struct {
-		name    string
-		val     any
-		wantRes map[string]any
-		wantErr error
+		name    string         // 测试用例名称
+		val     any            // 入参
+		wantRes map[string]any // 期望的结果
+		wantErr error          // 期望的error
 	}{
 		{
 			name:    "nil",
