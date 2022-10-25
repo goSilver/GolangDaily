@@ -1,6 +1,7 @@
 package net
 
 import (
+	"github.com/stretchr/testify/assert"
 	"net"
 	"testing"
 )
@@ -21,4 +22,9 @@ func TestClient(t *testing.T) {
 		conn.Close()
 		return
 	}
+}
+
+func TestConnect(t *testing.T) {
+	err := Connect("localhost:8080")
+	assert.Nil(t, err)
 }
