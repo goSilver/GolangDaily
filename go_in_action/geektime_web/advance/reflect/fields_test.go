@@ -8,6 +8,7 @@ import (
 
 type User struct {
 	Name string
+	age  int
 }
 
 func TestIterateFields(t *testing.T) {
@@ -61,6 +62,52 @@ func TestIterateFields(t *testing.T) {
 				return
 			}
 			assert.Equal(t, tt.wantRes, res)
+		})
+	}
+}
+
+func TestSetField(t *testing.T) {
+	testCases := []struct {
+		name string
+
+		field  string
+		entity any
+		newVal any
+
+		wantErr error
+	}{
+		{
+			name:    "struct",
+			entity:  User{},
+			field:   "Name",
+			wantErr: errors.New("非法类型"),
+		},
+		{
+			name:    "private field",
+			entity:  &User{},
+			field:   "age",
+			wantErr: errors.New("不可修改字段"),
+		},
+		{
+			name:    "invalid field",
+			entity:  &User{},
+			field:   "invalid_field",
+			wantErr: errors.New("字段不存在"),
+		},
+		{
+			name: "pass",
+			entity: &User{
+				Name: "",
+			},
+			field:  "Name",
+			newVal: "Tom",
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			err := SetField(tc.entity, tc.field, tc.newVal)
+			assert.Equal(t, tc.wantErr, err)
 		})
 	}
 }
