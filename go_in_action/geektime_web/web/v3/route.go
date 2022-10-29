@@ -1,4 +1,4 @@
-package v2
+package v3
 
 import (
 	"fmt"
@@ -10,12 +10,20 @@ type router struct {
 	trees map[string]*node
 }
 
+// node 代表路由树的节点
+// 路由树的匹配顺序是：
+// 1.静态完全匹配
+// 2.通配符匹配
+// 这是不回溯匹配
 type node struct {
 	path string
 	// 字节点
 	children map[string]*node
 	// 命中路由后执行的逻辑
 	handler HandleFunc
+
+	// 通配符*表达的节点，任意匹配
+	starChild *node
 }
 
 func newRouter() router {
@@ -68,13 +76,17 @@ func (r *router) addRoute(method, path string, handler HandleFunc) {
 
 // findRoute 查找对应的节点
 func (r *router) findRoute(method, path string) (*node, bool) {
+	// 先判断有没有对应http method的路由
 	root, ok := r.trees[method]
 	if !ok {
 		return nil, false
 	}
+	// 如果是跟路径，直接返回root节点
 	if path == "/" {
 		return root, true
 	}
+
+	// 广度优先地遍历路由树，找到叶子节点
 	segs := strings.Split(strings.Trim(path, "/"), "/")
 	for _, seg := range segs {
 		root, ok = root.childOf(seg)
@@ -87,14 +99,24 @@ func (r *router) findRoute(method, path string) (*node, bool) {
 
 func (n *node) childOf(path string) (*node, bool) {
 	if n.children == nil {
-		return nil, false
+		return n.starChild, n.starChild == nil
 	}
 	res, ok := n.children[path]
+	if !ok {
+		return n.starChild, n.starChild == nil
+	}
 	return res, ok
 }
 
 // childOrCreate 查找字节点，如果字节点不存在就创建一个
 func (n *node) childOrCreate(path string) *node {
+	// 处理通配符路径
+	if path == "*" {
+		if n.starChild == nil {
+			n.starChild = &node{path: "*"}
+		}
+		return n.starChild
+	}
 	if n.children == nil {
 		n.children = make(map[string]*node)
 	}
