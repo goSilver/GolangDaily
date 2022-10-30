@@ -136,6 +136,8 @@ ServeHTTP方法是作为http包与web框架的关联点，需要在ServeHTTP内�
 2. 能不能修改HTTP协议的响应？
    1. 原生API是不可以的。但是可以使用RespData这种机制，在最后再把数据刷新到网络中，在刷新之前，都可以修改。
 3. Form和PostForm都区别？
+   1. Form：是URL里面的参数和PATCH、POST、PUT的表单数据
+   2. PostForm：PATCH、POST或者PUT body参数
 4. web框架怎么支持路径参数的？
    1. web框架在发现匹配上了某个路径参数之后，将这段路径记录下来作为路径参数的值，这个值默认是string类型，用户也可以转为不同类型。
 
