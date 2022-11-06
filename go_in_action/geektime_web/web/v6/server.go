@@ -25,8 +25,8 @@ func NewHTTPServer() *HTTPServer {
 		router: newRouter(),
 	}
 
-	server.Use(NewBuilder().Build())
-	server.Use(NewBuilder2().Build2())
+	//server.Use(accesslog.NewBuilder().Build())
+	//server.Use(accesslog.NewBuilder2().Build2())
 
 	return server
 }

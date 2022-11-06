@@ -1,7 +1,8 @@
-package v6
+package accesslog
 
 import (
 	"encoding/json"
+	"gitee.com/geektime-geekbang/geektime-go/go_in_action/geektime_web/web/v6"
 	"log"
 )
 
@@ -14,6 +15,7 @@ func (b *MiddlewareBuilder) LogFunc(logFunc func(accessLog string)) *MiddlewareB
 	return b
 }
 
+// NewBuilder 打印accessLog中间件
 func NewBuilder() *MiddlewareBuilder {
 	return &MiddlewareBuilder{
 		logFunc: func(accessLog string) {
@@ -29,9 +31,9 @@ type accessLog struct {
 	Path       string
 }
 
-func (b *MiddlewareBuilder) Build() Middleware {
-	return func(next HandleFunc) HandleFunc {
-		return func(ctx *Context) {
+func (b *MiddlewareBuilder) Build() v6.Middleware {
+	return func(next v6.HandleFunc) v6.HandleFunc {
+		return func(ctx *v6.Context) {
 			defer func() {
 				l := accessLog{
 					Host:       ctx.Req.Host,
