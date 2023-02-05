@@ -1,12 +1,24 @@
 package main
 
-import "unicode/utf8"
+import "fmt"
 
 func main() {
-	println("hello world")
 
-	// go len()计算的是字节长度
-	println(len("你好"))                      // 6
-	println(utf8.RuneCountInString("你好"))   // 2
-	println(utf8.RuneCountInString("你好ab")) // 4
+	var arr []string
+	arr = append(arr, "A")
+	arr = append(arr, "B")
+	arr = append(arr, "C")
+
+	for _, s := range arr {
+		switch s {
+		case "A":
+			fallthrough
+		case "B":
+			fmt.Println("B")
+		case "C":
+			fmt.Println("C")
+		default:
+			fmt.Println("unknown")
+		}
+	}
 }
