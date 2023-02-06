@@ -28,8 +28,10 @@ type SimpleParseFactory struct {
 func (simple *SimpleParseFactory) create(ext string) ConfigParse {
 	switch ext {
 	case "json":
+		// 这里是简单构造逻辑
 		return &JsonConfigParse{}
 	case "xml":
+		// 这里是简单构造逻辑
 		return &XmlConfigParse{}
 	}
 	return nil
