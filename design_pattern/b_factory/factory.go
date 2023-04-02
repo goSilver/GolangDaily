@@ -1,5 +1,7 @@
 package b_factory
 
+import "errors"
+
 // NormalParseFactory 工厂方法
 type NormalParseFactory interface {
 	createParse() ConfigParse
@@ -22,12 +24,12 @@ func (xml *XmlNormalParseFactory) createParse() ConfigParse {
 }
 
 // createFactory 创建工厂
-func createFactory(ext string) NormalParseFactory {
+func createFactory(ext string) (NormalParseFactory, error) {
 	switch ext {
 	case "json":
-		return &JsonNormalParseFactory{}
+		return &JsonNormalParseFactory{}, nil
 	case "xml":
-		return &XmlNormalParseFactory{}
+		return &XmlNormalParseFactory{}, nil
 	}
-	return nil
+	return nil, errors.New("未知格式类型")
 }
