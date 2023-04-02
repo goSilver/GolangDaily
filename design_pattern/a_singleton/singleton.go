@@ -48,6 +48,12 @@ func GetInstanceHungry() *Singleton {
 	return insHungry
 }
 
+func init() {
+	if insHungry == nil {
+		insHungry = new(Singleton)
+	}
+}
+
 // GetInstanceOnce 利用go自带并发工具sync.Once
 var once sync.Once
 
